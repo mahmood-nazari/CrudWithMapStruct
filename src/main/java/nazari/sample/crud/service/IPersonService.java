@@ -1,14 +1,11 @@
 package nazari.sample.crud.service;
 
 import nazari.sample.crud.model.Person;
+import nazari.sample.crud.model.PersonDTO;
 
 public interface IPersonService {
 
-    Person saveOrUpdate(Person person);
+    Person saveOrUpdate(PersonDTO personDTO);
 
-    Person getById(Long id);
-
-    Iterable<Person> getAllPerson();
-
-    void deleteById(Long id);
+    PersonDTO getById(Long id);
 }

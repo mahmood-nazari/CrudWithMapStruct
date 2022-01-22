@@ -1,7 +1,10 @@
 package nazari.sample.crud.service;
 
+import nazari.sample.crud.mapper.PersonMapper;
 import nazari.sample.crud.model.Person;
+import nazari.sample.crud.model.PersonDTO;
 import nazari.sample.crud.repository.IPersonDao;
+import org.mapstruct.Mapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,23 +17,14 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public Person saveOrUpdate(Person person) {
+    public Person saveOrUpdate(PersonDTO personDTO) {
+        Person person = PersonMapper.INSTANCE.personDTOToPerson(personDTO);
         return iPersonDao.save(person);
-
     }
 
     @Override
-    public Person getById(Long id) {
-        return iPersonDao.findById(id).orElse(null);
-    }
-
-    @Override
-    public Iterable<Person> getAllPerson() {
-        return iPersonDao.findAll();
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        iPersonDao.deleteById(id);
+    public PersonDTO getById(Long id) {
+        Person person = iPersonDao.findById(id).orElse(null);
+        return PersonMapper.INSTANCE.personToPersonDTO(person);
     }
 }
